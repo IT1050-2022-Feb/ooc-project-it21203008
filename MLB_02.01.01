@@ -1,0 +1,674 @@
+GuestUser.h 
+ 
+#include "Vehicle.h" 
+class GuestUser 
+{ protected: 
+int custID;  	
+char custName[20];  	
+char custAddress[30];  
+char custEmail[30];  	
+char custphoneNumber[10]; 
+public: 
+GuestUser(){} 
+GuestUser(int pcustid, const char pcustName[], const char pcustAddress[], const char pcustEmail[] ,const char custPHno[]
+{}
+void searchVehicles(Vehicle* pVhcl); 
+void registerUser();  	
+void displayDetails(); 
+~GuestUser(); 
+}; 
+ 
+RegisteredCustomer.h 
+ 
+#include"GuestUser.h" 
+class RegisteredCustomer:
+public GuestUser 
+{ 
+protected: 
+ char custUsername[10]; 
+ char custPassword[10]; 
+ public: 
+ 	RegisteredCustomer(); 
+ 	RegisteredCustomer(const char pcustUsername[], const char pcustPassword[], int pcustid, const char pcustName[], const char 
+pcustAddress[], const char pcustEmail[], const char pcustNo[]); 
+ 	void displayDetails();  	void login();  	
+      void logout();  
+	char checkLoginDetails(); 
+ 	~RegisteredCustomer(); 
+}; 
+ 
+ 
+Seller.h 
+#include "RegisteredCustomer.h" 
+#include "Vehicle.h" 
+#define SIZE 5 
+class Seller :
+public RegisteredCustomer 
+{ private:
+ int noOfVehicles; 
+ Vehicle* sellVhcl[SIZE]; 
+ public:     Seller(); 
+    Seller(const char usName[], const char usPwd[], int id, const char name[], const char address[], const char email[], const char telno[], int pnoOfVehicles); 
+    void addSellingVehicle(Apartment* psellVhcl); 
+    void login(); 
+    void displaySellerDetails(); 
+    ~Seller(); 
+}; 
+ 
+Buyer.h 
+ 
+#include "RegisteredCustomer.h" 
+#include "Vehicle.h"
+ #define SIZE 5 
+class Buyer :
+ public RegisteredCustomer 
+{
+ private: 
+    int noOfVehicless; 
+ Vehicle* buyVhcl[SIZE]; 
+ public:            Buyer(); 
+    Buyer(const char usName[], const char usPwd[], int id, const char name[], const char address[], const char email[], const char telno[],int pnoOfVehicles); 
+   void addBuyingVehicle(Vehicle* pbuyVhcl);           void login(); 
+    void displayBuyerDetails(); 
+    ~Buyer(); 
+}; 
+ 
+Vehicle.h 
+ 
+#include "Booking.h" 
+#include "Renting.h" 
+#include "Seller.h" 
+#include "Buyer.h" 
+#include "Staff.h" 
+ 
+#define SIZE1 2 
+#define SIZE2 2 
+  
+class Vehicle 
+{ private: 
+ 	int vehicleID;  	char vehicleLoctaion[50];  	double vehiclePrice;  	char vehicleFacilities[50];  	double vehicleUtilityPrice;  	char vehicleStatus[50]; 
+ 	int count = 0; 
+ 
+ 	Booking* book[SIZE1]; 
+ 	Renting* sell[SIZE2]; 
+ 	Seller* seller; 
+ 	Buyer* buyer; 
+ 	Staff* staff; 
+ public: 
+ 	Vehicle(); 
+ 	Apartment(int sell1, int sell2, int book1, int book2,Seller* pseller, Buyer* pbuyer,Staff* pstaff);  	void vehicleDetails(int vhclID, const char vhclLocation, double vhc;Price, const char vhclFacility, double vhclUtiPrice, const char vhclStatus , Seller* pseller , Buyer* pbuyer , Staff* pstaff); 
+ 	void deleteVehicleDetails();  	void updateVehicleDetails();  	void calculateVehiclementPrice();  	void displayAptDetails();  	void checkAvailability(); 
+ 	~Vehicle(); 
+ 
+}; 
+ 
+  
+Staff.h 
+ 
+#include "Vehicle.h" #define SIZE 5 class Staff { private: 
+ 	int staffID;  	
+char staffName[20];  	
+char staffEmail[20];  	char staffNumber[10];  	char staffUsername[20];  	char staffPassword[20]; 
+ 
+ 	Vehicle* vhcl[SIZE]; 
+ public: 
+ 	Staff(); 
+ 	Staff(int pstaffID, const char pstaffName[], 
+const char pstaffEmail[], const char pstaffNumber[], 
+const char pstaffUsername[], const char pstaffPassword[]); 
+ 	void login(const char stfUsername, const char stfPsword );  	void manage( Vehicle* papt); 
+ 	~Staff(); 
+ 
+}; 
+ 
+  
+  
+Renting.h 
+ 
+#include"Payment.h" 
+#define SIZE 2 
+ 
+class Selling { 
+private: 
+ int SelID;  	
+char SelDate[20];  	
+char SelDescription[50];  double SelPrice; 
+ 	int count = 0; 
+ 
+ 	Payment* payment[SIZE]; 
+ public: 
+ 	Selling(); 
+ 	Selling(int pselID, const char pseldate[], const char pseldescription[], double pselprice, int pay1, int pay2);  	void calculateSellPrice(int id, const char pType[], double pAmt); 
+ 	void displaySelPrice();  	void addSelling(); 
+ 	~Selling(); 
+}; 
+Booking.h 
+#include"Payment.h" 
+#define SIZE 2 
+ 
+class Booking { private: 
+ 	char BookID[10];  	char BookDate[20];  	char BookDescription[50];  	double BookPrice;  	int count = 0; 
+ 
+ 	Payment* payment[SIZE]; public: 
+ 	Booking(); 
+ 	Booking(const char pbookID[], const char pbookDate[],const char pbookDescription[],double pbookPrice,int pay1, int pay2);  	void calculateBookPrice(int id, char pType[], double pAmt); 
+ 	void displayBookPrice();  	void addBooking(); 
+ 	~Booking(); 
+}; 
+Payment.h 
+ 
+class Payment 
+{ private: 
+ 	int payID;  	char payType[20];  	double payAmount; 
+ public: 
+ 	Payment(); 
+ 	Payment(int pID,const char ppayType[],double ppayAmount); 
+ 	void checkPayment();  	void confirmPayment(); 
+ 	void displayPaymentDetails(); 
+ 	~Payment(); 
+}; 
+ 
+Report.h  
+#include"Renting.h" 
+#include"Booking.h" 
+#include"Payment.h" 
+#define SIZE1 5 
+#define SIZE2 5 
+#define SIZE3 5 
+ 
+class Report 
+{ private: 
+ 	Booking* book[SIZE1]; 
+ 	Renting* sell[SIZE2];  	Payment* pay[SIZE3]; public: 
+ 	Report(); 
+ 	Report(Booking* pbbok[], Renting* psell[], Payment* ppay[]); 
+ 	void bookingDetailsReport();  	void RentingDetailsReport();  	void paymentDetailsReport(); 
+ 	~Report(); 
+}; 
+ 
+ 
+ 
+ 
+Class Cpp Files  
+ 
+GuestUser.cpp 
+ 
+#include "GuestUser.h" 
+#include <cstring> 
+ 
+GuestUser::GuestUser() 
+{ 
+ 	custID = 0;  	strcpy(custName, "");  	strcpy(custAddress, "");  	strcpy(custEmail, ""); 
+ 	strcpy(custphoneNumber, "0000000000"); 
+} 
+ 
+GuestUser::GuestUser(int pcustid, const char pcustName[], const char pcustAddress[], const char pcustEmail[], const char custPHno[]) 
+{ 
+ 	custID = pcustid;  	strcpy(custName, pcustName);  	strcpy(custAddress, pcustAddress);  	strcpy(custEmail, pcustEmail); 
+ 	strcpy(custphoneNumber, custPHno); 
+ 	 
+} 
+ 
+void GuestUser::searchVehicles(Vehicle* pVhcl) 
+{ 
+ 
+} 
+ 
+void GuestUser::registerUser() 
+{ 
+ 
+} 
+ 
+void GuestUser::displayDetails() 
+{ 
+ 
+} 
+ 
+GuestUser::~GuestUser() 
+{ 
+ 	//Destructor  
+} 
+ 
+RegisteredCustomer.cpp  
+#include "RegisteredCustomer.h" 
+#include <cstring> 
+ 
+RegisteredCustomer::RegisteredCustomer() 
+{ 
+ 	strcpy(custUsername, "");  	strcpy(custPassword, ""); 
+} 
+ 
+RegisteredCustomer::RegisteredCustomer(const char pcustUsername[], const char pcustPassword[], int pcustid, const char pcustName[], const char pcustAddress[], const char pcustEmail[], const char pcustNo[]) : GuestUser(pcustid, pcustName, pcustAddress, pcustEmail, pcustNo) {  	strcpy(custUsername, pcustUsername);  	strcpy(custPassword, pcustPassword); 
+} 
+ 
+void RegisteredCustomer::displayDetails() 
+{ 
+ 
+} 
+ 
+void RegisteredCustomer::login() 
+{ 
+ 
+} 
+ 
+void RegisteredCustomer::logout() 
+{ 
+ 
+} 
+ 
+char RegisteredCustomer::checkLoginDetails() 
+{ 
+ 	return 0; 
+} 
+ 
+RegisteredCustomer::~RegisteredCustomer() 
+{ 
+ 	//Destructor  
+} 
+ 
+ 
+Seller.cpp 
+ 
+#include "Seller.h" 
+ 
+ 
+Seller::Seller() 
+{ 
+ 	noOfVehicles = 0; 
+} 
+ 
+Seller::Seller(const char usName[], const char usPwd[], int id, const char name[], const char address[], const char email[], const char telno[], int pnoOfApartments) :RegisteredCustomer(usName, 
+usPwd, id, name, address, email, telno) 
+{ 
+ 	noOfVehicles = pnoOfVehicles; 
+} 
+ 
+void Seller::addSellingVehicle(Vehicle* psellVhcl) 
+{ 
+ 	if (noOfVehicles < SIZE) 
+ 	{ 
+ 	 	sellVhcl[noOfVehicles] = psellVjcl; 
+ 	 	noOfVrhicles++; 
+ 	} 
+} 
+ 
+void Seller::login() 
+{ 
+} 
+ 
+void Seller::displaySellerDetails() 
+{ 
+} 
+ 
+Seller::~Seller() 
+{ 
+ 	//Destructor  
+} 
+ 
+ 
+ 
+ 
+ 
+Buyer.cpp 
+ 
+#include "Buyer.h" 
+ 
+Buyer::Buyer() 
+{ 
+ 	noOfApartments = 0; 
+} 
+ 
+Buyer::Buyer(const char usName[], const char usPwd[], int id, const char name[], const char address[], const char email[], const char telno[], int pnoOfApartments):RegisteredCustomer(usName,usPwd, id,  name, address,  email,  telno) 
+{ 
+ 	noOfVehicles = pnoOfVehicles; 
+} 
+ 
+void Buyer::addBuyingVehicle(Vehicle* pbuyVhcl) 
+{ 
+ 	if (noOfVehicles < SIZE) 
+ 	{ 
+ 	 	buyApt[noOfVehicles] = pbuyVhcl; 
+ 	 	noOfVehicles++; 
+ 	} 
+} 
+ 
+void Buyer::login() 
+{ 
+ 
+} 
+ 
+void Buyer::displayBuyerDetails() 
+{ 
+ 
+} 
+ 
+Buyer::~Buyer() 
+{ 
+ 	//Destructor  
+ 	for (int i = 0; i < SIZE; i++) 
+ 	{ 
+ 	 	delete buyVhcl[i]; 
+ 	} 
+} 
+ 
+ 
+ 
+Vehicle.cpp 
+ 
+#include "Vehicle.h" 
+#define SIZE1 2 
+#define SIZE2 2 
+ 
+Vehicle::Vehicle() 
+{ 
+ 
+} 
+ 
+Vehicle::Vehicle(int sell1, int sell2, int book1, int book2, 
+Seller* pseller, Buyer* pbuyer, Staff* pstaff) 
+{  	sell[0] = new Selling(sell1);  	sell[1] = new Selling(sell2); 
+  	book[0] = new Booking(book1);  	book[1] = new Booking(book2); 
+  	seller = pseller;  	buyer = pbuyer;  	staff = pstaff; 
+}  void Vehicle::vehicleDetails(int vhclID, const char vhclLocation, double vhclPrice, const char vhclFacility, double vhclUtiPrice, const char vhclStatus, Seller* pseller, Buyer* pbuyer, Staff* pstaff) 
+{ 
+ 
+}  void Vehicle::deleteVehicleDetails() 
+{ 
+ 
+}  void Vehicle::updateVehicleDetails() 
+{ 
+ 
+} 
+ 
+void Vehicle::calculateVehiclePrice() 
+{ 
+ 
+}  void Vehicle::displayVhclDetails() 
+{ 
+ 
+}  void Vehicle::checkAvailability() 
+{ 
+ 
+} 
+ 
+Vehicle::~Vehicle() 
+{ 
+ 	//Destructor   	for (int i = 0; i < SIZE1; i++) 
+ 	{ 
+ 	 	delete book[i]; 
+ 	} 
+  	for (int i = 0; i < SIZE2; i++) 
+ 	{ 
+ 	 	delete rent[i]; 
+ 	} 
+} 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Staff.cpp 
+ 
+#include "Vehicle.h" 
+#include "Staff.h" 
+#include<cstring> 
+ 
+Staff::Staff() 
+{ 
+ 	staffID = 0;  	strcpy(staffName, "");  	strcpy(staffEmail, "");  	strcpy(staffNumber, "0000000000");  	strcpy(staffUsername, "");  	strcpy(staffPassword, ""); 
+} 
+ 
+Staff::Staff(int pstaffID, const char pstaffName[], const char pstaffEmail[], const char pstaffNumber[], const char pstaffUsername[], const char pstaffPassword[]) 
+{ 
+ 	staffID = pstaffID;  	strcpy(staffName, pstaffName);  	strcpy(staffEmail, pstaffEmail);  	strcpy(staffNumber, pstaffNumber);  	strcpy(staffUsername, pstaffUsername);  	strcpy(staffPassword, pstaffPassword); 
+} 
+ 
+void Staff::login(const char stfUsername, const char stfPsword) 
+{ 
+} 
+ 
+void Staff::manage(Vehicle* papt) 
+{ 
+} 
+ 
+Staff::~Staff() 
+{ 
+ 	//Destructor  
+ 	for (int i = 0; i < SIZE; i++) 
+ 	{ 
+ 	 	delete vhcl[i]; 
+ 	} 
+} 
+ 
+ 
+Renting.cpp  
+#include "Renting.h"
+#include<cstring> 
+ 
+Renting::Renting() 
+{ 
+ 	SelID = 0;  	strcpy(SelDate, "");  	strcpy(SelDescription, ""); 
+ 	SelPrice = 0; 
+} 
+ 
+Renting::Renting(int pselID, const char pseldate[], const char pseldescription[], double pselprice, int pay1, int pay2) 
+{ 
+ 	SelPrice = pselprice;  	strcpy(SelDate, pseldate); 
+ 	strcpy(SelDescription, pseldescription); 
+ 	SelID = pselID; 
+} 
+ 
+void Renting::calculateSellPrice(int id, const char pType[], double pAmt) 
+{ 
+ 	if (count < SIZE) 
+ 	{ 
+ 	 	payment[count] = new Payment(id, pType, pAmt); 
+ 	 	count++; 
+ 	} 	 
+} 
+ 
+void Renting::displaySelPrice() 
+{ 
+} 
+ 
+void Renting::addRenting() 
+{ 
+} 
+ 
+Renting::~Renting() 
+{ 
+ 	//Destructor  
+ 	for (int i = 0; i < SIZE; i++) 
+ 	{ 
+ 	 	delete payment[i]; 
+ 	} 
+} 
+Booking.cpp 
+ 
+#include "Payment.h"
+#include "Booking.h" 
+#include<cstring> 
+Booking::Booking() 
+{ 
+ 	strcpy(BookID, "");  	strcpy(BookDate, "");  	strcpy(BookDescription, ""); 
+ 	BookPrice = 0; 
+} 
+ 
+Booking::Booking(const char pbookID[],const char pbookDate[], const char pbookDescription[], double pbookPrice, int pay1, int pay2) 
+{ 
+ 	strcpy(BookID, pbookID);  	strcpy(BookDate, pbookDate); 
+ 	strcpy(BookDescription, pbookDescription); 
+ 	BookPrice = 0;  
+} 
+ 
+void Booking::calculateBookPrice(int id, char pType[], double pAmt) 
+{ 
+ 	if (count < SIZE) 
+ 	{ 
+ 	 	payment[count] = new Payment(id, pType, pAmt); 
+ 	 	count++; 
+ 	} 
+} 
+void Booking::displayBookPrice() 
+{ 
+ 
+} 
+void Booking::addBooking() 
+{ 
+ 
+} 
+Booking::~Booking() 
+{ 
+ 	//Destructor  
+ 	for (int i = 0; i < SIZE; i++) 
+ 	{ 
+ 	 	delete payment[i]; 
+ 	} 
+} 
+ 
+ 
+Payment.cpp  
+#include "Payment.h"
+#include<cstring> 
+ 
+Payment::Payment() 
+{ 
+ 	payID = 0;  	strcpy(payType, "");  	payAmount = 0; 
+} 
+ 
+Payment::Payment(int pID, const char ppayType[], double ppayAmount) 
+{ 
+ 	payID = pID;  	strcpy(payType, ppayType);  	payAmount = ppayAmount; 
+}  void Payment::checkPayment() 
+{ 
+ 
+}  void Payment::confirmPayment() 
+{ 
+ 
+}  void Payment::displayPaymentDetails() 
+{ 
+ 
+} 
+ 
+Payment::~Payment() 
+{ 
+ 	//Destructor  
+} 
+ 
+ 
+ 
+Report.cpp 
+#include "Report.h" 
+Report::Report() 
+{ 
+ 	for (int i = 0; i < SIZE1; i++) 
+ 	{ 
+ 	 	book[i] = 0; 
+ 	} 
+ 	for (int j = 0; j < SIZE2; j++) 
+ 	{ 
+ 	 	sell[j] = 0; 
+ 	} 
+ 	for (int k = 0; k < SIZE3; k++) 
+ 	{ 
+ 	 	pay[k] = 0; 
+ 	} 
+} 
+ 
+Report::Report(Booking* pbbok[], Selling* psell[], Payment* ppay[]) 
+{ 
+ 	for (int i = 0; i < SIZE1; i++) 
+ 	{ 
+ 	 	book[i] = pbbok[i]; 
+ 	} 
+ 	for (int j = 0; j < SIZE2; j++) 
+ 	{ 
+ 	 	sell[j] = psell[j]; 
+ 	} 
+ 	for (int k = 0; k < SIZE3; k++) 
+ 	{ 
+ 	 	pay[k] = ppay[k]; 
+ 	} 
+}  
+void Report::bookingDetailsReport() 
+{ 
+}  
+void Report::sellingDetailsReport() 
+{ 
+}  
+void Report::paymentDetailsReport() 
+{ 
+} 
+ 
+Report::~Report() 
+{ 
+ 	//Destructor  
+ 	for (int i = 0; i < SIZE1; i++) 
+ 	{ 
+ 	 	delete book[i] ; 
+ 	} 
+ 	for (int j = 0; j < SIZE2; j++) 
+ 	{ 
+ 	 	delete sell[j] ; 
+ 	} 
+ 	for (int k = 0; k < SIZE3; k++) 
+ 	{ 
+ 	 	delete pay[k] ; 
+ 	} 
+} 
+Main program 
+ 
+Main.cpp 
+ 
+#include "Booking.h" 
+#include "Renting.h" 
+#include "Seller.h" 
+#include "Buyer.h" 
+#include "Staff.h" 
+#include "Vehicle.h" 
+#include "GuestUser.h" 
+#include "Payment.h" 
+#include "RegisteredCustomer.h" 
+#include "Report.h" 
+ 
+#include <iostream> using namespace std; 
+ int main() 
+{ 
+ 
+ 
+    //---- Object creation ------ 
+ 
+ 
+    GuestUser* rg = new RegisteredCustomer(); // Object - 
+RegisteredCustomer class 
+ 
+    RegisteredCustomer* seller = new Seller(); // Object  - seller class 
+ 
+    RegisteredCustomer* buyer = new Buyer(); // Object - buyer class  
+    Vehicle* apt = new Vehicle(); // Object - Vehicle class  
+    Renting* renting = new Renting(); // Object  - Renting class 
+ 
+    Booking* booking = new Booking(); // Object  - Booking class 
+ 
+    Staff* staff = new Staff(); // Object  - Staff class  
+    Report* report = new Report(); // Object - Report class     //----Method Calling------     rg->login();     rg->displayDetails(); 
+    
+     seller->login();     seller->displaySellerDetails(); 
+     buyer->login();     buyer->displayBuyerDetails(); 
+ 
+    apt->updateAptDetails();     vhcl->checkAvailability(); 
+ 
+    renting->addRenting();     renting->displaySelPrice(); 
+ 
+    booking->addBooking();     booking->displayBookPrice(); 
+ 
+    report->bookingDetailsReport();     report->rentingDetailsReport();     report->paymentDetailsReport(); 
+ 
+ 
+    //----Delete Dynamic objects------     delete rg;     delete seller;     delete buyer;     delete apt;     delete renting;     delete booking;     delete report; 
+      return 0; 
+} 
