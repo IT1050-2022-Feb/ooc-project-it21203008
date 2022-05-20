@@ -1,0 +1,116 @@
+Seller.h 
+#include "RegisteredCustomer.h" 
+#include "Vehicle.h" 
+#define SIZE 5 
+class Seller :
+public RegisteredCustomer 
+{ private:
+ int noOfVehicles; 
+ Vehicle* sellVhcl[SIZE]; 
+ public:     Seller(); 
+    Seller(const char usName[], const char usPwd[], int id, const char name[], const char address[], const char email[], const char telno[], int pnoOfVehicles); 
+    void addSellingVehicle(Apartment* psellVhcl); 
+    void login(); 
+    void displaySellerDetails(); 
+    ~Seller(); 
+}; 
+ 
+Buyer.h 
+ 
+#include "RegisteredCustomer.h" 
+#include "Vehicle.h"
+ #define SIZE 5 
+class Buyer :
+ public RegisteredCustomer 
+{
+ private: 
+    int noOfVehicless; 
+ Vehicle* buyVhcl[SIZE]; 
+ public:            Buyer(); 
+    Buyer(const char usName[], const char usPwd[], int id, const char name[], const char address[], const char email[], const char telno[],int pnoOfVehicles); 
+   void addBuyingVehicle(Vehicle* pbuyVhcl);           void login(); 
+    void displayBuyerDetails(); 
+    ~Buyer(); 
+}; 
+ 
+ Seller.cpp 
+ 
+#include "Seller.h" 
+ 
+ 
+Seller::Seller() 
+{ 
+ 	noOfVehicles = 0; 
+} 
+ 
+Seller::Seller(const char usName[], const char usPwd[], int id, const char name[], const char address[], const char email[], const char telno[], int pnoOfApartments) :RegisteredCustomer(usName, 
+usPwd, id, name, address, email, telno) 
+{ 
+ 	noOfVehicles = pnoOfVehicles; 
+} 
+ 
+void Seller::addSellingVehicle(Vehicle* psellVhcl) 
+{ 
+ 	if (noOfVehicles < SIZE) 
+ 	{ 
+ 	 	sellVhcl[noOfVehicles] = psellVjcl; 
+ 	 	noOfVrhicles++; 
+ 	} 
+} 
+ 
+void Seller::login() 
+{ 
+} 
+ 
+void Seller::displaySellerDetails() 
+{ 
+} 
+ 
+Seller::~Seller() 
+{ 
+ 	//Destructor  
+} 
+ 
+ 
+ 
+ 
+ 
+Buyer.cpp 
+ 
+#include "Buyer.h" 
+ 
+Buyer::Buyer() 
+{ 
+ 	noOfApartments = 0; 
+} 
+ 
+Buyer::Buyer(const char usName[], const char usPwd[], int id, const char name[], const char address[], const char email[], const char telno[], int pnoOfApartments):RegisteredCustomer(usName,usPwd, id,  name, address,  email,  telno) 
+{ 
+ 	noOfVehicles = pnoOfVehicles; 
+} 
+ 
+void Buyer::addBuyingVehicle(Vehicle* pbuyVhcl) 
+{ 
+ 	if (noOfVehicles < SIZE) 
+ 	{ 
+ 	 	buyApt[noOfVehicles] = pbuyVhcl; 
+ 	 	noOfVehicles++; 
+ 	} 
+} 
+ 
+void Buyer::login() 
+{ 
+ 
+} 
+ 
+void Buyer::displayBuyerDetails() 
+{ 
+ 
+} 
+ 
+Buyer::~Buyer() 
+{ 
+
+ 
+ 
+ 
