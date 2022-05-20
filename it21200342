@@ -1,0 +1,144 @@
+Vehicle.h 
+ 
+#include "Booking.h" 
+#include "Renting.h" 
+#include "Seller.h" 
+#include "Buyer.h" 
+#include "Staff.h" 
+ 
+#define SIZE1 2 
+#define SIZE2 2 
+  
+class Vehicle 
+{ private: 
+ 	int vehicleID;  	char vehicleLoctaion[50];  	double vehiclePrice;  	char vehicleFacilities[50];  	double vehicleUtilityPrice;  	char vehicleStatus[50]; 
+ 	int count = 0; 
+ 
+ 	Booking* book[SIZE1]; 
+ 	Renting* sell[SIZE2]; 
+ 	Seller* seller; 
+ 	Buyer* buyer; 
+ 	Staff* staff; 
+ public: 
+ 	Vehicle(); 
+ 	Apartment(int sell1, int sell2, int book1, int book2,Seller* pseller, Buyer* pbuyer,Staff* pstaff);  	void vehicleDetails(int vhclID, const char vhclLocation, double vhc;Price, const char vhclFacility, double vhclUtiPrice, const char vhclStatus , Seller* pseller , Buyer* pbuyer , Staff* pstaff); 
+ 	void deleteVehicleDetails();  	void updateVehicleDetails();  	void calculateVehiclementPrice();  	void displayAptDetails();  	void checkAvailability(); 
+ 	~Vehicle(); 
+ 
+}; 
+
+
+Vehicle.cpp 
+ 
+#include "Vehicle.h" 
+#define SIZE1 2 
+#define SIZE2 2 
+ 
+Vehicle::Vehicle() 
+{ 
+ 
+} 
+ 
+Vehicle::Vehicle(int sell1, int sell2, int book1, int book2, 
+Seller* pseller, Buyer* pbuyer, Staff* pstaff) 
+{  	sell[0] = new Selling(sell1);  	sell[1] = new Selling(sell2); 
+  	book[0] = new Booking(book1);  	book[1] = new Booking(book2); 
+  	seller = pseller;  	buyer = pbuyer;  	staff = pstaff; 
+}  void Vehicle::vehicleDetails(int vhclID, const char vhclLocation, double vhclPrice, const char vhclFacility, double vhclUtiPrice, const char vhclStatus, Seller* pseller, Buyer* pbuyer, Staff* pstaff) 
+{ 
+ 
+}  void Vehicle::deleteVehicleDetails() 
+{ 
+ 
+}  void Vehicle::updateVehicleDetails() 
+{ 
+ 
+} 
+ 
+void Vehicle::calculateVehiclePrice() 
+{ 
+ 
+}  void Vehicle::displayVhclDetails() 
+{ 
+ 
+}  void Vehicle::checkAvailability() 
+{ 
+ 
+} 
+ 
+Vehicle::~Vehicle() 
+{ 
+ 	//Destructor   	for (int i = 0; i < SIZE1; i++) 
+ 	{ 
+ 	 	delete book[i]; 
+ 	} 
+  	for (int i = 0; i < SIZE2; i++) 
+ 	{ 
+ 	 	delete rent[i]; 
+ 	} 
+} 
+
+
+Renting.h 
+ 
+#include"Payment.h" 
+#define SIZE 2 
+ 
+class Selling { 
+private: 
+ int SelID;  	
+char SelDate[20];  	
+char SelDescription[50];  double SelPrice; 
+ 	int count = 0; 
+ 
+ 	Payment* payment[SIZE]; 
+ public: 
+ 	Selling(); 
+ 	Selling(int pselID, const char pseldate[], const char pseldescription[], double pselprice, int pay1, int pay2);  	void calculateSellPrice(int id, const char pType[], double pAmt); 
+ 	void displaySelPrice();  	void addSelling(); 
+ 	~Selling(); 
+}; 
+
+
+Renting.cpp  
+#include "Renting.h"
+#include<cstring> 
+ 
+Renting::Renting() 
+{ 
+ 	SelID = 0;  	strcpy(SelDate, "");  	strcpy(SelDescription, ""); 
+ 	SelPrice = 0; 
+} 
+ 
+Renting::Renting(int pselID, const char pseldate[], const char pseldescription[], double pselprice, int pay1, int pay2) 
+{ 
+ 	SelPrice = pselprice;  	strcpy(SelDate, pseldate); 
+ 	strcpy(SelDescription, pseldescription); 
+ 	SelID = pselID; 
+} 
+ 
+void Renting::calculateSellPrice(int id, const char pType[], double pAmt) 
+{ 
+ 	if (count < SIZE) 
+ 	{ 
+ 	 	payment[count] = new Payment(id, pType, pAmt); 
+ 	 	count++; 
+ 	} 	 
+} 
+ 
+void Renting::displaySelPrice() 
+{ 
+} 
+ 
+void Renting::addRenting() 
+{ 
+} 
+ 
+Renting::~Renting() 
+{ 
+ 	//Destructor  
+ 	for (int i = 0; i < SIZE; i++) 
+ 	{ 
+ 	 	delete payment[i]; 
+ 	} 
+} 
